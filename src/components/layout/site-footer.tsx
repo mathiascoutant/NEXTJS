@@ -7,14 +7,7 @@ export function SiteFooter() {
             &copy; {new Date().getFullYear()} My Supa Store — Boutique de football
           </p>
           <p className="text-xs text-pitch-400">
-            Formation Next.js Jour 1 —{" "}
-            <a href="/demo/loading-test" className="underline hover:text-gold-400">
-              test loading
-            </a>
-            {" · "}
-            <a href="/demo/error-test" className="underline hover:text-gold-400">
-              test error
-            </a>
+            Formation Next.js Jour 1
           </p>
         </div>
       </div>
