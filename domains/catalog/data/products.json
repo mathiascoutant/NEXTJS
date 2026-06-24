@@ -1,0 +1,151 @@
+[
+  {
+    "id": "prod-1",
+    "name": "Maillot France Domicile 2024",
+    "slug": "maillot-france-domicile-2024",
+    "description": "Le maillot bleu iconique des Bleus, conçu pour la performance.",
+    "price": 89.99,
+    "currency": "EUR",
+    "stock": 42,
+    "sku": "FOOT-FRA-001",
+    "category": "maillots",
+    "brand": "Nike",
+    "images": {
+      "main": "/products/maillot-france.jpg",
+      "gallery": [
+        "/products/maillot-france.jpg",
+        "/products/maillot-france-2.jpg"
+      ]
+    },
+    "specs": {
+      "matiere": "100% polyester recyclé",
+      "technologie": "Dri-FIT",
+      "coupe": "Slim fit",
+      "badge": "FFF brodé"
+    }
+  },
+  {
+    "id": "prod-2",
+    "name": "Maillot Brésil Domicile",
+    "slug": "maillot-bresil-domicile",
+    "description": "Le jaune légendaire de la Seleção, symbole du football mondial.",
+    "price": 84.99,
+    "currency": "EUR",
+    "stock": 35,
+    "sku": "FOOT-BRA-001",
+    "category": "maillots",
+    "brand": "Nike",
+    "images": {
+      "main": "https://images.unsplash.com/photo-1552066379-e340103938b9?w=800&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1552066379-e340103938b9?w=800&q=80",
+        "https://images.unsplash.com/photo-1552066379-e7bfd22155c5?w=800&q=80"
+      ]
+    },
+    "specs": {
+      "matiere": "Polyester respirant",
+      "col": "V classique",
+      "badge": "CBF officiel",
+      "sechage": "Rapide"
+    }
+  },
+  {
+    "id": "prod-3",
+    "name": "Ballon Adidas Champions League",
+    "slug": "ballon-adidas-champions-league",
+    "description": "Le ballon officiel aux étoiles dorées, prêt pour le grand match.",
+    "price": 149.99,
+    "currency": "EUR",
+    "stock": 28,
+    "sku": "FOOT-BAL-001",
+    "category": "ballons",
+    "brand": "Adidas",
+    "images": {
+      "main": "https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=800&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=800&q=80",
+        "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80"
+      ]
+    },
+    "specs": {
+      "taille": "5 officielle",
+      "coutures": "Thermosoudées",
+      "bladder": "Latex",
+      "certification": "FIFA Quality Pro"
+    }
+  },
+  {
+    "id": "prod-4",
+    "name": "Nike Mercurial Vapor 15",
+    "slug": "nike-mercurial-vapor",
+    "description": "Vitesse pure. La chaussure des attaquants les plus rapides.",
+    "price": 279.99,
+    "currency": "EUR",
+    "stock": 15,
+    "sku": "FOOT-CHA-001",
+    "category": "chaussures",
+    "brand": "Nike",
+    "images": {
+      "main": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80"
+      ]
+    },
+    "specs": {
+      "semelle": "Aerotrak",
+      "empeigne": "Flyknit",
+      "plaque": "Cyclone 360",
+      "crampons": "FG"
+    }
+  },
+  {
+    "id": "prod-5",
+    "name": "Short d'Entraînement Pro",
+    "slug": "short-entrainement-pro",
+    "description": "Confort et liberté de mouvement pour vos séances intensives.",
+    "price": 34.99,
+    "currency": "EUR",
+    "stock": 60,
+    "sku": "FOOT-ACC-001",
+    "category": "accessoires",
+    "brand": "Adidas",
+    "images": {
+      "main": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80"
+      ]
+    },
+    "specs": {
+      "tissu": "Stretch 4 directions",
+      "poche": "Zippée latérale",
+      "taille": "Élastique avec cordon",
+      "sechage": "Rapide"
+    }
+  },
+  {
+    "id": "prod-6",
+    "name": "Gants de Gardien Pro",
+    "slug": "gants-gardien-pro",
+    "description": "Adhérence maximale et protection pour les gardiens exigeants.",
+    "price": 59.99,
+    "currency": "EUR",
+    "stock": 22,
+    "sku": "FOOT-ACC-002",
+    "category": "accessoires",
+    "brand": "Uhlsport",
+    "images": {
+      "main": "https://images.unsplash.com/photo-1632072820781-79f3a064f640?w=800&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1632072820781-79f3a064f640?w=800&q=80",
+        "https://images.unsplash.com/photo-1774201427012-fd1eb39deddb?w=800&q=80"
+      ]
+    },
+    "specs": {
+      "mousse": "Latex 4mm",
+      "bandeau": "Élastique renforcé",
+      "dos": "Mesh respirant",
+      "coupe": "Negative fit"
+    }
+  }
+]
