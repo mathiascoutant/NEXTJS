@@ -1,6 +1,15 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { CartSummary } from "@/components/cart/cart-summary";
 import { Button } from "@/components/ui/button";
+
+function CartSummaryFallback() {
+  return (
+    <span className="inline-flex min-h-11 items-center px-3 text-sm text-pitch-300">
+      Panier…
+    </span>
+  );
+}
 
 export function SiteHeader() {
   return (
@@ -26,7 +35,12 @@ export function SiteHeader() {
           <Button href="/" variant="ghost">
             Boutique
           </Button>
-          <CartSummary />
+          <Button href="/sponsorises" variant="ghost">
+            Partenaires
+          </Button>
+          <Suspense fallback={<CartSummaryFallback />}>
+            <CartSummary />
+          </Suspense>
         </nav>
       </div>
     </header>

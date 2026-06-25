@@ -1,5 +1,16 @@
+import { Suspense } from "react";
 import { ProductGrid } from "@/components/product/product-grid";
+import {
+  SponsoredProducts,
+  SponsoredProductsSkeleton,
+} from "@/components/product/sponsored-products";
+import { loadSponsoredProducts } from "@/components/product/sponsored-products";
 import { getProducts } from "@domains/catalog/repository/productRepository";
+
+async function HomeSponsoredSection() {
+  const products = await loadSponsoredProducts(6);
+  return <SponsoredProducts products={products} showRefresh />;
+}
 
 export default async function HomePage() {
   const products = await getProducts();
@@ -30,6 +41,10 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
+
+      <Suspense fallback={<SponsoredProductsSkeleton />}>
+        <HomeSponsoredSection />
+      </Suspense>
 
       <section
         className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"

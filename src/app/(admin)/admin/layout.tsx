@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import { AdminDynamicShell } from "./admin-dynamic-shell";
 
 export const metadata: Metadata = {
   title: "Administration",
   description: "Gestion des produits My Supa Store",
 };
+
+function AdminLoading() {
+  return (
+    <div className="flex flex-1 items-center justify-center p-6 text-slate-400">
+      Chargement admin…
+    </div>
+  );
+}
 
 export default function AdminLayout({
   children,
@@ -48,7 +58,11 @@ export default function AdminLayout({
             Admin
           </Link>
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6">
+          <Suspense fallback={<AdminLoading />}>
+            <AdminDynamicShell>{children}</AdminDynamicShell>
+          </Suspense>
+        </main>
       </div>
     </div>
   );

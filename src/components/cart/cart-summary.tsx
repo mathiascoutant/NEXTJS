@@ -1,11 +1,17 @@
-"use client";
-
 import Link from "next/link";
-import { useCart } from "@/contexts/cart-context";
-import { formatPrice } from "@domains/catalog/entity/product";
+import { readCartSessionId } from "@/lib/cart-session";
+import { getCartItems } from "@domains/catalog/repository/cartRepository";
+import {
+  formatPrice,
+  getTotalArticles,
+  getTotalPrice,
+} from "@domains/catalog/entity/product";
 
-export function CartSummary() {
-  const { totalArticles, totalPrice, items } = useCart();
+export async function CartSummary() {
+  const sessionId = await readCartSessionId();
+  const items = await getCartItems(sessionId);
+  const totalArticles = getTotalArticles(items);
+  const totalPrice = getTotalPrice(items);
 
   return (
     <Link

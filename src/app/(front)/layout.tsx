@@ -1,4 +1,5 @@
-import { CartProvider } from "@/contexts/cart-context";
+import { Suspense } from "react";
+import { CartRefreshListener } from "@/components/cart/cart-refresh-listener";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 
@@ -8,12 +9,15 @@ export default function FrontLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <CartProvider>
+    <>
+      <CartRefreshListener />
       <SiteHeader />
       <main id="main-content" className="flex-1">
         {children}
       </main>
-      <SiteFooter />
-    </CartProvider>
+      <Suspense fallback={<footer className="mt-auto h-24 border-t border-white/10 bg-pitch-950" />}>
+        <SiteFooter />
+      </Suspense>
+    </>
   );
 }
