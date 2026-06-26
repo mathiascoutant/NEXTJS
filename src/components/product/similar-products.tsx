@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+import { PrefetchLink } from "@/components/navigation/prefetch-link";
+import type { PrefetchMode } from "@/lib/ab-testing";
 import {
   formatPrice,
   getProductPath,
@@ -8,9 +9,13 @@ import {
 
 type SimilarProductsProps = {
   products: Product[];
+  prefetchMode?: PrefetchMode;
 };
 
-export function SimilarProducts({ products }: SimilarProductsProps) {
+export function SimilarProducts({
+  products,
+  prefetchMode = "default",
+}: SimilarProductsProps) {
   if (products.length === 0) {
     return null;
   }
@@ -29,8 +34,9 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {products.map((product) => (
           <li key={product.id}>
-            <Link
+            <PrefetchLink
               href={getProductPath(product.slug)}
+              prefetchMode={prefetchMode}
               className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-pitch-900/40 transition-colors hover:border-gold-500/40"
             >
               <div className="relative aspect-square overflow-hidden bg-pitch-800">
@@ -51,7 +57,7 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
                   {formatPrice(product.price, product.currency)}
                 </p>
               </div>
-            </Link>
+            </PrefetchLink>
           </li>
         ))}
       </ul>

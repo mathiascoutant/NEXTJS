@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { auth } from "@/auth";
 import { AdminDynamicShell } from "./admin-dynamic-shell";
 
 export const metadata: Metadata = {
@@ -16,11 +18,17 @@ function AdminLoading() {
   );
 }
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
+  if (!session?.user || session.user.role !== "ADMIN") {
+    redirect("/");
+  }
+
   return (
     <div className="flex min-h-screen bg-slate-950 text-slate-100">
       <aside className="hidden w-64 shrink-0 border-r border-slate-800 bg-slate-900 p-6 lg:block">

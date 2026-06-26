@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { PrefetchLink } from "@/components/navigation/prefetch-link";
+import type { PrefetchMode } from "@/lib/ab-testing";
 import {
   formatPrice,
   getProductPath,
@@ -10,12 +11,14 @@ import {
 
 type ProductCardProps = {
   product: Product;
+  prefetchMode?: PrefetchMode;
 };
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, prefetchMode = "default" }: ProductCardProps) {
   return (
-    <Link
+    <PrefetchLink
       href={getProductPath(product.slug)}
+      prefetchMode={prefetchMode}
       className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-pitch-900/50 transition-all duration-200 hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-lg hover:shadow-gold-500/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-400"
     >
       <div className="relative aspect-square overflow-hidden bg-pitch-800">
@@ -47,6 +50,6 @@ export function ProductCard({ product }: ProductCardProps) {
           {formatPrice(product.price, product.currency)}
         </p>
       </div>
-    </Link>
+    </PrefetchLink>
   );
 }

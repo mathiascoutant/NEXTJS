@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { RefreshSponsoredButton } from "@/components/product/refresh-sponsored-button";
+import { PrefetchLink } from "@/components/navigation/prefetch-link";
+import type { PrefetchMode } from "@/lib/ab-testing";
 import {
   fetchSponsoredProducts,
   getSponsoredProductPath,
@@ -11,11 +12,13 @@ import { formatPrice } from "@domains/catalog/entity/product";
 type SponsoredProductsProps = {
   products: SponsoredProduct[];
   showRefresh?: boolean;
+  prefetchMode?: PrefetchMode;
 };
 
 export function SponsoredProducts({
   products,
   showRefresh = false,
+  prefetchMode = "default",
 }: SponsoredProductsProps) {
   if (products.length === 0) {
     return null;
@@ -41,7 +44,7 @@ export function SponsoredProducts({
           </div>
           {showRefresh ? <RefreshSponsoredButton /> : null}
         </div>
-        <SponsoredProductGrid products={products} />
+        <SponsoredProductGrid products={products} prefetchMode={prefetchMode} />
       </div>
     </section>
   );
@@ -49,15 +52,18 @@ export function SponsoredProducts({
 
 export function SponsoredProductGrid({
   products,
+  prefetchMode = "default",
 }: {
   products: SponsoredProduct[];
+  prefetchMode?: PrefetchMode;
 }) {
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
         <li key={product.id}>
-          <Link
+          <PrefetchLink
             href={getSponsoredProductPath(product.handle)}
+            prefetchMode={prefetchMode}
             className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-pitch-900/40 transition-colors hover:border-gold-500/40"
           >
             <div className="relative aspect-video overflow-hidden bg-pitch-800">
@@ -84,7 +90,7 @@ export function SponsoredProductGrid({
                 {formatPrice(product.price, product.currency)}
               </p>
             </div>
-          </Link>
+          </PrefetchLink>
         </li>
       ))}
     </ul>

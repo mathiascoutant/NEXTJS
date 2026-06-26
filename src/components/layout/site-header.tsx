@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { CartSummary } from "@/components/cart/cart-summary";
-import { Button } from "@/components/ui/button";
+import { AuthNav } from "@/components/layout/auth-nav";
+import { NavLink } from "@/components/navigation/nav-link";
 
 function CartSummaryFallback() {
   return (
@@ -29,15 +30,14 @@ export function SiteHeader() {
         </Link>
 
         <nav
-          className="flex items-center gap-2"
+          className="flex items-center gap-1 sm:gap-2"
           aria-label="Navigation principale"
         >
-          <Button href="/" variant="ghost">
-            Boutique
-          </Button>
-          <Button href="/sponsorises" variant="ghost">
-            Partenaires
-          </Button>
+          <NavLink href="/">Boutique</NavLink>
+          <NavLink href="/sponsorises">Partenaires</NavLink>
+          <Suspense fallback={null}>
+            <AuthNav />
+          </Suspense>
           <Suspense fallback={<CartSummaryFallback />}>
             <CartSummary />
           </Suspense>

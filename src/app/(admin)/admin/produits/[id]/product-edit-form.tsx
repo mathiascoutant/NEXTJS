@@ -102,22 +102,36 @@ export function ProductEditForm({ product }: ProductEditFormProps) {
         </label>
       </div>
 
-      {state.message && (
+      {state.message ? (
         <p
           className={`text-sm ${state.success ? "text-emerald-400" : "text-red-400"}`}
           role="status"
         >
           {state.message}
         </p>
-      )}
+      ) : null}
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className="inline-flex min-h-11 items-center rounded-lg bg-amber-500 px-6 py-2.5 text-sm font-semibold text-slate-950 hover:bg-amber-400 disabled:opacity-50"
-      >
-        {isPending ? "Enregistrement…" : "Enregistrer"}
-      </button>
+      <div className="flex flex-wrap gap-3">
+        <button
+          type="submit"
+          name="intent"
+          value="save"
+          disabled={isPending}
+          className="inline-flex min-h-11 items-center rounded-lg bg-amber-500 px-6 py-2.5 text-sm font-semibold text-slate-950 hover:bg-amber-400 disabled:opacity-50"
+        >
+          {isPending ? "Enregistrement…" : "Enregistrer"}
+        </button>
+
+        <button
+          type="submit"
+          name="intent"
+          value="error-test"
+          disabled={isPending}
+          className="inline-flex min-h-11 items-center rounded-lg border border-red-500/40 px-6 py-2.5 text-sm font-medium text-red-300 hover:bg-red-500/10 disabled:opacity-50"
+        >
+          Tester une erreur
+        </button>
+      </div>
     </form>
   );
 }

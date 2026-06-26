@@ -4,11 +4,16 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "graphqlstore.julienfroidefond.com",
       },
     ],
   },

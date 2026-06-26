@@ -5,7 +5,7 @@ import {
   SponsoredProductsSkeleton,
 } from "@/components/product/sponsored-products";
 import { loadSponsoredProducts } from "@/components/product/sponsored-products";
-import { getProducts } from "@domains/catalog/repository/productRepository";
+import { getCachedCatalogProducts } from "@/lib/cached-catalog";
 
 async function HomeSponsoredSection() {
   const products = await loadSponsoredProducts(6);
@@ -13,7 +13,7 @@ async function HomeSponsoredSection() {
 }
 
 export default async function HomePage() {
-  const products = await getProducts();
+  const products = await getCachedCatalogProducts();
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { getProductBySlug } from "@domains/catalog/repository/productRepository";
 import { getCachedSimilarProducts, simulateSlowFetch } from "@/lib/cached-compute";
+import type { PrefetchMode } from "@/lib/ab-testing";
 import {
   SimilarProducts,
   SimilarProductsSkeleton,
@@ -9,11 +10,13 @@ import { notFound } from "next/navigation";
 type SimilarProductsSectionProps = {
   productId?: string;
   slug?: string;
+  prefetchMode?: PrefetchMode;
 };
 
 export async function SimilarProductsSection({
   productId,
   slug,
+  prefetchMode = "default",
 }: SimilarProductsSectionProps) {
   let resolvedId = productId;
 
@@ -34,7 +37,7 @@ export async function SimilarProductsSection({
     1200,
   );
 
-  return <SimilarProducts products={products} />;
+  return <SimilarProducts products={products} prefetchMode={prefetchMode} />;
 }
 
 export { SimilarProductsSkeleton };

@@ -1,6 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { z } from "zod";
 import { updateProduct } from "@domains/catalog/repository/productRepository";
 import { getProductPath } from "@domains/catalog/entity/product";
 
@@ -9,47 +10,59 @@ export type UpdateProductActionState = {
   message: string;
 };
 
+const updateProductSchema = z.object({
+  name: z.string().trim().min(1, "Le nom est requis."),
+  description: z.string().trim().min(1, "La description est requise."),
+  price: z.coerce.number().min(0, "Le prix doit être positif."),
+  stock: z.coerce.number().int().min(0, "Le stock doit être un entier positif."),
+  category: z.string().trim().min(1, "La catégorie est requise."),
+  brand: z.string().trim().min(1, "La marque est requise."),
+});
+
 export async function updateProductAction(
   id: string,
   _prevState: UpdateProductActionState,
   formData: FormData,
 ): Promise<UpdateProductActionState> {
-  const name = String(formData.get("name") ?? "").trim();
-  const description = String(formData.get("description") ?? "").trim();
-  const price = Number(formData.get("price"));
-  const stock = Number(formData.get("stock"));
-  const category = String(formData.get("category") ?? "").trim();
-  const brand = String(formData.get("brand") ?? "").trim();
+  const intent = String(formData.get("intent") ?? "save");
 
-  if (!name || !description || !category || !brand) {
-    return { success: false, message: "Tous les champs texte sont requis." };
+  if (intent === "error-test") {
+    return {
+      success: false,
+      message: "Échec simulé : impossible de mettre à jour le produit.",
+    };
   }
 
-  if (Number.isNaN(price) || price < 0) {
-    return { success: false, message: "Le prix doit être un nombre positif." };
-  }
+  const parsed = updateProductSchema.safeParse({
+    name: formData.get("name"),
+    description: formData.get("description"),
+    price: formData.get("price"),
+    stock: formData.get("stock"),
+    category: formData.get("category"),
+    brand: formData.get("brand"),
+  });
 
-  if (Number.isNaN(stock) || stock < 0 || !Number.isInteger(stock)) {
-    return { success: false, message: "Le stock doit être un entier positif." };
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: parsed.error.issues[0]?.message ?? "Données invalides.",
+    };
   }
 
   try {
-    const product = await updateProduct(id, {
-      name,
-      description,
-      price,
-      stock,
-      category,
-      brand,
-    });
+    const product = await updateProduct(id, parsed.data);
 
+    revalidateTag("catalog-products", "max");
     revalidatePath("/");
     revalidatePath("/admin/produits");
     revalidatePath(`/admin/produits/${id}`);
     revalidatePath(getProductPath(product.slug));
 
-    return { success: true, message: "Produit mis à jour avec succès." };
+    return { success: true, message: "Produit enregistré." };
   } catch {
-    return { success: false, message: "Erreur lors de la mise à jour du produit." };
+    return {
+      success: false,
+      message: "La mise à jour a échoué. Réessayez dans un instant.",
+    };
   }
 }

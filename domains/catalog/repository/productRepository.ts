@@ -1,3 +1,4 @@
+import { cache } from "react";
 import {
   findAllProducts,
   findAllSlugs,
@@ -11,9 +12,9 @@ export async function getProducts() {
   return findAllProducts();
 }
 
-export async function getProductBySlug(slug: string) {
+export const getProductBySlug = cache(async (slug: string) => {
   return findProductBySlug(slug);
-}
+});
 
 export async function getProductById(id: string) {
   return findProductById(id);

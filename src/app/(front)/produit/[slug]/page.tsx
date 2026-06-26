@@ -12,6 +12,7 @@ import {
   SponsoredProductsSkeleton,
 } from "@/components/product/sponsored-products-section";
 import { USE_PARALLEL_ROUTES } from "@/lib/store-config";
+import { getLinkPrefetchMode } from "@/lib/prefetch-mode";
 import { getAllProductSlugs } from "@domains/catalog/data/cachedProductData";
 import { getProductBySlug } from "@domains/catalog/repository/productRepository";
 import type { Metadata } from "next";
@@ -61,6 +62,7 @@ async function ProductStaticShell({ slug }: { slug: string }) {
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
+  const prefetchMode = await getLinkPrefetchMode();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -69,10 +71,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {!USE_PARALLEL_ROUTES ? (
         <>
           <Suspense fallback={<SponsoredProductsSkeleton />}>
-            <SponsoredProductsSection limit={3} />
+            <SponsoredProductsSection limit={3} prefetchMode={prefetchMode} />
           </Suspense>
           <Suspense fallback={<SimilarProductsSkeleton />}>
-            <SimilarProductsSection slug={slug} />
+            <SimilarProductsSection slug={slug} prefetchMode={prefetchMode} />
           </Suspense>
         </>
       ) : null}
